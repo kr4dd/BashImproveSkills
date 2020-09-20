@@ -21,7 +21,8 @@ function ctrl_c(){
 }
 
 function removeRepeatedLines(){
-	cat hashes.tmp | awk '!a[$0]++'> hashes.tmp
+	cat hashes.tmp | awk '!a[$0]++'> cleanRepeated.tmp; cat cleanRepeated.tmp>hashes.tmp; rm cleanRepeated.tmp
+
 }
 
 function encrypter(){
@@ -38,6 +39,8 @@ function encrypter(){
 	removeRepeatedLines
 
 	echo -ne "\n${greenColour}Password was encrypted well! ${endColour}$word\n"
+	
+	tput cnorm;
 }
 
 function decrypterByHash(){
@@ -50,6 +53,8 @@ function decrypterByHash(){
 	else
 		echo -ne "\n${redColour}No matches";for i in $(seq 1 3); do sleep 0.3;echo -ne "${redColour}.${endColour}";done
 	fi
+	
+	tput cnorm;
 }
 
 function helpPanel(){
